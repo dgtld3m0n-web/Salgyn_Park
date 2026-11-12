@@ -1,5 +1,9 @@
-// FILE: api.php
 <?php
+// Включаем показ ошибок, чтобы понять, в чем проблема
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 header("Access-Control-Allow-Origin: *");
@@ -92,6 +96,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $action = $_GET['action'] ?? '';
+    
+    if ($action === 'get_public_reviews') {
+        $stmt = $pdo->query("SELECT name, visit, rating, text FROM reviews ORDER BY id DESC");
+        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        exit;
+    }
+
     $token = $_GET['token'] ?? '';
 
     if (!isset($_SESSION['token']) || $_SESSION['token'] !== $token) {

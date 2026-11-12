@@ -1168,6 +1168,38 @@
 
     updateCalculator();
 
+    // Загрузка отзывов на страницу
+    function loadPublicReviews() {
+      fetch('api.php?action=get_public_reviews')
+        .then(res => res.json())
+        .then(data => {
+          const grid = document.getElementById('reviewsGrid');
+          if (data.length === 0) {
+            grid.innerHTML = '<p style="text-align:center; color:var(--gray);">Пока нет отзывов. Будьте первым!</p>';
+            return;
+          }
+          grid.innerHTML = '';
+          data.forEach(item => {
+            const starsHtml = '★'.repeat(item.rating) + '☆'.repeat(5 - item.rating);
+            const reviewCard = document.createElement('div');
+            reviewCard.className = 'review-card';
+            reviewCard.innerHTML = `
+              <div class="review-stars">${starsHtml}</div>
+              <p class="review-text">«${item.text}»</p>
+              <div class="review-author">
+                <div class="review-avatar">${item.name.charAt(0).toUpperCase()}</div>
+                <div class="review-author-info">
+                  <strong>${item.name}</strong>
+                  <span>${item.visit || 'Гость Салгын Парка'}</span>
+                </div>
+              </div>
+            `;
+            grid.appendChild(reviewCard);
+          });
+        });
+    }
+    loadPublicReviews();
+
     const bookingForm = document.getElementById('bookingForm');
     const guestName = document.getElementById('guestName');
     const guestPhone = document.getElementById('guestPhone');
@@ -1247,15 +1279,24 @@
       formData.append('services', servicesText);
       formData.append('total', calcTotal.textContent);
 
-      fetch('api.php', { method: 'POST', body: formData })
-      .then(res => res.json())
+            fetch('api.php', { method: 'POST', body: formData })
+      .then(async res => {
+        // Проверяем, вернул ли сервер статус 200 OK
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`Сервер вернул ошибку ${res.status}: ${text}`);
+        }
+        return res.json();
+      })
       .then(data => {
         bookingForm.style.display = 'none';
         successMessage.classList.add('show');
         successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
       })
       .catch(err => {
-        alert('Ошибка отправки. Проверьте соединение с сервером.');
+        // Выводим точную причину в консоль браузера (F12)
+        console.error('ОШИБКА ОТПРАВКИ:', err);
+        alert('Ошибка отправки. Проверьте консоль (F12) для деталей.');
         submitBtn.textContent = 'Отправить заявку';
         submitBtn.disabled = false;
       });
@@ -1282,7 +1323,6 @@
     });
 
     const reviewForm = document.getElementById('reviewForm');
-    const reviewsGrid = document.getElementById('reviewsGrid');
 
     reviewForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -1301,8 +1341,6 @@
         return;
       }
 
-      const starsHtml = '★'.repeat(currentRating) + '☆'.repeat(5 - currentRating);
-
       const reviewData = new FormData();
       reviewData.append('action', 'review');
       reviewData.append('name', name);
@@ -1313,30 +1351,13 @@
       fetch('api.php', {
         method: 'POST',
         body: reviewData
+      })
+      .then(() => {
+        reviewForm.reset();
+        currentRating = 0;
+        stars.forEach(s => s.classList.remove('active'));
+        loadPublicReviews(); // Обновляем список отзывов на странице
       });
-
-      const reviewCard = document.createElement('div');
-      reviewCard.className = 'review-card';
-      reviewCard.style.animation = 'fadeInUp 0.4s ease';
-      reviewCard.innerHTML = `
-        <div class="review-stars">${starsHtml}</div>
-        <p class="review-text">«${text}»</p>
-        <div class="review-author">
-          <div class="review-avatar">${name.charAt(0).toUpperCase()}</div>
-          <div class="review-author-info">
-            <strong>${name}</strong>
-            <span>${visit || 'Гость Салгын Парка'}</span>
-          </div>
-        </div>
-      `;
-
-      reviewsGrid.prepend(reviewCard);
-
-      reviewForm.reset();
-      currentRating = 0;
-      stars.forEach(s => s.classList.remove('active'));
-
-      reviewCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
     document.querySelectorAll('.faq-question').forEach(btn => {
