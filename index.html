@@ -468,6 +468,44 @@
       .calc-item-right-group { margin-left: 36px; width: calc(100% - 36px); justify-content: space-between; }
       .review-form-wrapper { padding: 24px; }
     }
+
+    /* ===== Динамичный округлый дизайн + барабан услуг ===== */
+    :root { --radius: 28px; }
+    .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .3; }
+    .hero-card { border-radius: 32px; }
+    .badge { animation: floaty 4s ease-in-out infinite; }
+    .badge:nth-child(2) { animation-delay: .5s; } .badge:nth-child(3) { animation-delay: 1s; } .badge:nth-child(4) { animation-delay: 1.5s; }
+    @keyframes floaty { 50% { transform: translateY(-6px); } }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s, transform .7s; }
+    .reveal.in { opacity: 1; transform: none; }
+    .calc-panel, .form-panel, .about-card { border-radius: 28px; }
+
+    .drum { position: relative; padding-bottom: 20px; touch-action: pan-y; user-select: none; outline: none; }
+    .drum-stage { height: 560px; perspective: 1700px; display: flex; align-items: center; justify-content: center; }
+    .drum-ring { position: relative; width: 300px; height: 510px; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.2,.8,.2,1); }
+    .drum.dragging .drum-ring { transition: none; }
+    .drum .service-card { position: absolute; inset: 0; padding: 0; border-radius: 32px; overflow: hidden; backface-visibility: hidden;
+      opacity: .5; cursor: pointer; transition: opacity .4s, box-shadow .4s; }
+    .drum .service-card.is-active { opacity: 1; box-shadow: 0 24px 60px rgba(0,78,137,.28); }
+    .drum .service-card:hover { transform: none; }
+    .drum .service-card > :not(.media):not(.service-icon):not(.popular-tag) { margin-left: 24px; margin-right: 24px; }
+    .drum .service-card > h3 { margin-top: 38px; }
+    .drum .service-card > p { flex-grow: 0; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 14px; }
+    .drum .service-note, .drum .service-options { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .drum .popular-tag { top: 14px; right: 14px; }
+    .media { height: 190px; flex-shrink: 0; position: relative; overflow: hidden; background: linear-gradient(135deg, #1A6FAF, #FF6B35 120%); }
+    .media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s, opacity .5s; }
+    .media img.alt { opacity: 0; }
+    .is-active:hover .media img, .is-flipped .media img { transform: scale(1.12); }
+    .is-active:hover .media img.alt, .is-flipped .media img.alt { opacity: 1; }
+    .drum .service-icon { position: absolute; top: 160px; left: 22px; width: 58px; height: 58px; margin: 0; border-radius: 20px;
+      background: #fff; display: grid; place-items: center; font-size: 1.7rem; box-shadow: var(--shadow); z-index: 2; }
+    .drum-nav { display: flex; justify-content: center; gap: 16px; }
+    .drum-btn { width: 56px; height: 56px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 1.8rem; line-height: 1;
+      box-shadow: 0 8px 24px rgba(255,107,53,.35); transition: transform .2s; }
+    .drum-btn:hover { transform: scale(1.1); }
+    @media (max-width: 600px) { .drum-ring, .drum .service-card { width: 260px; } .drum-stage { height: 540px; } }
+    @media (prefers-reduced-motion: reduce) { .badge { animation: none; } .reveal { opacity: 1; transform: none; transition: none; } .drum-ring { transition-duration: .01s; } }
   </style>
 </head>
 <body>
@@ -496,6 +534,7 @@
   </header>
 
   <section class="hero">
+    <img class="hero-bg" src="images/hero.webp" alt="" fetchpriority="high">
     <div class="container hero-content">
       <div class="hero-text">
         <h1>Активный отдых <span>для всей семьи</span> в Якутске</h1>
@@ -557,9 +596,10 @@
     <div class="container">
       <h2 class="section-title">Услуги и цены</h2>
       <p class="section-subtitle">Актуальные цены. По будням действует скидка 20%. Точную стоимость подтвердит администратор.</p>
-      <div class="services-grid">
+      <div class="drum" data-drum tabindex="0" aria-label="Карусель услуг: листайте мышью, пальцем или стрелками"><div class="drum-stage"><div class="drum-ring">
 
         <div class="service-card popular">
+          <div class="media"><img src="images/services/aerotruba.webp" alt="" loading="lazy"><img class="alt" src="images/services/aerotruba-2.webp" alt="" loading="lazy"></div>
           <span class="popular-tag">Хит</span>
           <div class="service-icon">🪂</div>
           <h3>Аэротруба</h3>
@@ -569,6 +609,7 @@
         </div>
 
         <div class="service-card">
+          <div class="media"><img src="images/services/batut.webp" alt="" loading="lazy"><img class="alt" src="images/services/batut-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">🤸</div>
           <h3>Батутный парк</h3>
           <p>Классические и наклонные батуты, мини-скалодром, поролоновая яма, воздушная подушка, профессиональный батут. Работа по сеансам (каждый час).</p>
@@ -578,6 +619,7 @@
         </div>
 
         <div class="service-card">
+          <div class="media"><img src="images/services/labyrinth.webp" alt="" loading="lazy"><img class="alt" src="images/services/labyrinth-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">🧩</div>
           <h3>Игровой лабиринт</h3>
           <p>4 этажа препятствий, 3 горки, бассейн с шариками. Безлимитное посещение — можно играть сколько угодно в течение дня.</p>
@@ -587,6 +629,7 @@
         </div>
 
         <div class="service-card">
+          <div class="media"><img src="images/services/vr-arena.webp" alt="" loading="lazy"><img class="alt" src="images/services/vr-arena-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">🕶️</div>
           <h3>VR-арена</h3>
           <p>Командные игры от 2 до 12 человек: друг против друга, против зомби, детские и взрослые «стрелялки». 45 минут игры + 15 минут инструктажа.</p>
@@ -595,6 +638,7 @@
         </div>
 
         <div class="service-card">
+          <div class="media"><img src="images/services/ps5.webp" alt="" loading="lazy"><img class="alt" src="images/services/ps5-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">🎮</div>
           <h3>PlayStation 5</h3>
           <p>EA FC 25, UFC 5, Mortal Kombat 1, Gran Turismo 7, Spider-Man 2, Tekken 8, GTA 5. Отличный вариант для тех, кто хочет передохнуть между активностями.</p>
@@ -602,6 +646,7 @@
         </div>
 
         <div class="service-card">
+          <div class="media"><img src="images/services/arcade.webp" alt="" loading="lazy"><img class="alt" src="images/services/arcade-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">👾</div>
           <h3>Игровые автоматы</h3>
           <p>Классические игровые автоматы для детей и взрослых. Жетоны можно приобрести на ресепшн.</p>
@@ -610,6 +655,7 @@
         </div>
 
         <div class="service-card">
+          <div class="media"><img src="images/services/spiderman.webp" alt="" loading="lazy"><img class="alt" src="images/services/spiderman-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">🦸</div>
           <h3>Аниматор «Человек-паук»</h3>
           <p>Игры, конкурсы и личное поздравление виновника торжества. Живое общение и индивидуальный подход сделают праздник запоминающимся.</p>
@@ -617,6 +663,7 @@
         </div>
 
         <div class="service-card">
+          <div class="media"><img src="images/services/vr-stand.webp" alt="" loading="lazy"><img class="alt" src="images/services/vr-stand-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">🥽</div>
           <h3>VR-стенд</h3>
           <p>Одиночные VR-игры: Blade And Sorcery, I'm Cat, Pistol Whip и другие. Оборудование откалибровано, инструктаж включён.</p>
@@ -625,6 +672,7 @@
         </div>
 
         <div class="service-card">
+          <div class="media"><img src="images/services/certificate.webp" alt="" loading="lazy"><img class="alt" src="images/services/certificate-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">🎁</div>
           <h3>Подарочный сертификат</h3>
           <p>Физический или электронный сертификат на сумму от 400 ₽ (кратно сотне). Бессрочный. Не участвует в скидках и акциях.</p>
@@ -632,12 +680,13 @@
           <div class="service-note">Электронный — по WhatsApp, физический — в «Салгын Парке».</div>
         </div>
 
-      </div>
+</div></div><div class="drum-nav"><button type="button" class="drum-btn" data-dir="-1" aria-label="Назад">‹</button><button type="button" class="drum-btn" data-dir="1" aria-label="Вперёд">›</button></div></div>
 
       <h3 style="text-align: center; margin: 48px 0 24px; font-size: 1.6rem; font-weight: 800;">VIP-комнаты для праздников</h3>
-      <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+      <div class="drum" data-drum tabindex="0" aria-label="Карусель услуг: листайте мышью, пальцем или стрелками"><div class="drum-stage"><div class="drum-ring">
 
         <div class="service-card">
+          <div class="media"><img src="images/vip/zemlya.webp" alt="" loading="lazy"><img class="alt" src="images/vip/zemlya-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">🌍</div>
           <h3>«Земля»</h3>
           <p>До 18 человек (макс. 35). Диванчики, TV + PlayStation 5, банкетная зона, панорамный вид.</p>
@@ -646,6 +695,7 @@
         </div>
 
         <div class="service-card">
+          <div class="media"><img src="images/vip/voda.webp" alt="" loading="lazy"><img class="alt" src="images/vip/voda-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">💧</div>
           <h3>«Вода»</h3>
           <p>До 12 человек (макс. 16). TV, банкетная зона.</p>
@@ -654,6 +704,7 @@
         </div>
 
         <div class="service-card">
+          <div class="media"><img src="images/vip/vozduh.webp" alt="" loading="lazy"><img class="alt" src="images/vip/vozduh-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">💨</div>
           <h3>«Воздух»</h3>
           <p>До 12 человек (макс. 16). TV, банкетная зона.</p>
@@ -662,6 +713,7 @@
         </div>
 
         <div class="service-card">
+          <div class="media"><img src="images/vip/ogon.webp" alt="" loading="lazy"><img class="alt" src="images/vip/ogon-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">🔥</div>
           <h3>«Огонь»</h3>
           <p>До 18 человек (макс. 35). Диванчики, TV + PlayStation 5, банкетная зона.</p>
@@ -670,6 +722,7 @@
         </div>
 
         <div class="service-card">
+          <div class="media"><img src="images/vip/metall.webp" alt="" loading="lazy"><img class="alt" src="images/vip/metall-2.webp" alt="" loading="lazy"></div>
           <div class="service-icon">⚙️</div>
           <h3>«Металл»</h3>
           <p>До 18 человек (макс. 40). Диванчики, TV + PlayStation 5, банкетная зона.</p>
@@ -677,7 +730,7 @@
           <div class="service-note">Продление: 2 100 ₽/час. +1 человек — 250 ₽. Включена вода 5 л и одноразовая посуда.</div>
         </div>
 
-      </div>
+</div></div><div class="drum-nav"><button type="button" class="drum-btn" data-dir="-1" aria-label="Назад">‹</button><button type="button" class="drum-btn" data-dir="1" aria-label="Вперёд">›</button></div></div>
     </div>
   </section>
 
@@ -1453,6 +1506,55 @@
         mailModal.classList.remove('show');
       }
     });
+  
+    /* ===== Барабан услуг и появление блоков при прокрутке ===== */
+    (function () {
+      var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('[data-drum]').forEach(function (root) {
+        var ring = root.querySelector('.drum-ring'), cards = [].slice.call(ring.children), n = cards.length,
+            step = 360 / n, angle = 0, R = 0, timer, down = false, moved = 0, x0 = 0, a0 = 0;
+        function cur() { return ((Math.round(angle / step) % n) + n) % n; }
+        function render() {
+          ring.style.transform = 'translateZ(-' + R + 'px) rotateY(' + (-angle) + 'deg)';
+          var c = cur(); cards.forEach(function (el, i) { el.classList.toggle('is-active', i === c); if (i !== c) el.classList.remove('is-flipped'); });
+        }
+        function layout() {
+          R = Math.round((cards[0].offsetWidth + 28) / 2 / Math.tan(Math.PI / n));
+          cards.forEach(function (el, i) { el.style.transform = 'rotateY(' + (i * step) + 'deg) translateZ(' + R + 'px)'; });
+          render();
+        }
+        function go(d) { angle = Math.round(angle / step) * step + d * step; render(); }
+        function stop() { clearInterval(timer); }
+        function auto() { stop(); if (!calm) timer = setInterval(function () { go(1); }, 4500); }
+        root.querySelectorAll('.drum-btn').forEach(function (b) { b.addEventListener('click', function () { stop(); go(+b.dataset.dir); }); });
+        root.addEventListener('keydown', function (e) { if (e.key === 'ArrowLeft') { stop(); go(-1); } if (e.key === 'ArrowRight') { stop(); go(1); } });
+        root.addEventListener('pointerdown', function (e) { down = true; moved = 0; x0 = e.clientX; a0 = angle; stop(); });
+        window.addEventListener('pointermove', function (e) {
+          if (!down) return; moved = Math.abs(e.clientX - x0);
+          if (moved > 6) { root.classList.add('dragging'); angle = a0 - (e.clientX - x0) / 260 * step; render(); }
+        });
+        window.addEventListener('pointerup', function () {
+          if (!down) return; down = false; root.classList.remove('dragging'); angle = Math.round(angle / step) * step; render();
+        });
+        cards.forEach(function (el, i) {
+          el.addEventListener('click', function () {
+            if (moved > 6) return;
+            var d = i - cur(); if (d > n / 2) d -= n; if (d < -n / 2) d += n;
+            if (d) go(d); else el.classList.toggle('is-flipped');   /* тап по центральной карточке меняет/увеличивает фото */
+          });
+        });
+        root.addEventListener('error', function (e) { if (e.target.tagName === 'IMG') e.target.remove(); }, true); /* нет фото — остаётся градиент */
+        root.addEventListener('mouseenter', stop); root.addEventListener('mouseleave', auto);
+        window.addEventListener('resize', layout); layout(); auto();
+      });
+      var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (en) {
+        en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } });
+      }, { threshold: .15 }) : null;
+      document.querySelectorAll('.about-card, .calc-panel, .form-panel, .section-title').forEach(function (el) {
+        if (io) { el.classList.add('reveal'); io.observe(el); }
+      });
+      var hb = document.querySelector('.hero-bg'); if (hb) hb.addEventListener('error', function () { hb.remove(); });
+    })();
   </script>
 
 </body>
