@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Согласие на обработку персональных данных — Салгын Парк</title>
+  <meta name="description" content="Согласие на обработку персональных данных центра активного отдыха Салгын Парк в соответствии с Федеральным законом № 152-ФЗ.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ========== БАЗОВЫЕ СТИЛИ ========== */
+    :root {
+      --primary: #FF6B35;
+      --primary-dark: #E55A2B;
+      --secondary: #004E89;
+      --accent: #F7C948;
+      --dark: #1A1A2E;
+      --gray: #6B7280;
+      --light-gray: #F3F4F6;
+      --white: #FFFFFF;
+      --radius: 16px;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { 
+      font-family: 'Montserrat', sans-serif; 
+      color: var(--dark); 
+      background: var(--white); 
+      line-height: 1.7; 
+      overflow-x: hidden; 
+      padding-top: 72px;
+    }
+    a { text-decoration: none; color: var(--primary); transition: color 0.2s; }
+    a:hover { color: var(--primary-dark); }
+    ul { list-style: none; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+    /* ========== ШАПКА ========== */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+      display: flex; align-items: center; height: 72px;
+    }
+    .header-inner { 
+      display: flex; align-items: center; justify-content: space-between; 
+      width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; 
+    }
+    .logo { 
+      display: flex; align-items: center; gap: 10px; 
+      font-weight: 800; font-size: 1.3rem; color: var(--secondary); 
+    }
+    .logo-icon { 
+      width: 44px; height: 44px; 
+      background: linear-gradient(135deg, var(--primary), var(--accent)); 
+      border-radius: 12px; display: flex; align-items: center; justify-content: center; 
+      font-size: 1.4rem; color: white; font-weight: 800; 
+    }
+    .back-link {
+      font-size: 0.9rem; font-weight: 600; color: var(--gray);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .back-link:hover { color: var(--primary); }
+
+    /* ========== КОНТЕНТ ========== */
+    .page-content { padding: 60px 0 80px; }
+    .page-title { 
+      font-size: 2.2rem; font-weight: 800; 
+      margin-bottom: 16px; line-height: 1.2; 
+    }
+    .page-subtitle { 
+      font-size: 1rem; color: var(--gray); 
+      margin-bottom: 40px; padding-bottom: 24px;
+      border-bottom: 2px solid var(--light-gray);
+    }
+    .consent-body h2 {
+      font-size: 1.3rem; font-weight: 700; 
+      margin: 32px 0 16px; color: var(--secondary);
+    }
+    .consent-body h3 {
+      font-size: 1.1rem; font-weight: 600; 
+      margin: 24px 0 12px; color: var(--dark);
+    }
+    .consent-body p { margin-bottom: 16px; text-align: justify; }
+    .consent-body ul { margin-bottom: 16px; padding-left: 24px; }
+    .consent-body ul li { 
+      position: relative; margin-bottom: 8px; padding-left: 8px; 
+    }
+    .consent-body ul li::before {
+      content: '•'; position: absolute; left: -12px; 
+      color: var(--primary); font-weight: 700;
+    }
+    .consent-body strong { font-weight: 700; }
+
+    .info-box {
+      background: var(--light-gray); 
+      border-left: 4px solid var(--primary);
+      border-radius: 0 12px 12px 0; 
+      padding: 20px 24px; 
+      margin: 24px 0;
+      font-size: 0.95rem;
+    }
+    .info-box p { margin-bottom: 0; }
+
+    /* ========== ФУТЕР ========== */
+    .footer { 
+      background: var(--dark); color: white; 
+      padding: 40px 0 24px; text-align: center; 
+    }
+    .footer p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); }
+
+    /* ========== АДАПТИВНОСТЬ ========== */
+    @media (max-width: 768px) {
+      .page-title { font-size: 1.6rem; }
+      .page-content { padding: 40px 0 60px; }
+      .header-phone { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== ШАПКА ========== -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">С</div>
+        Салгын Парк
+      </a>
+      <a href="index.html" class="back-link">← Вернуться на сайт</a>
+    </div>
+  </header>
+
+  <!-- ========== КОНТЕНТ ========== -->
+  <main class="page-content">
+    <div class="container">
+      
+      <h1 class="page-title">Согласие на обработку персональных данных</h1>
+      <p class="page-subtitle">Редакция от 11 ноября 2026 года</p>
+
+      <div class="consent-body">
+
+        <p>Настоящим я, субъект персональных данных (далее — «Пользователь»), действуя свободно, своей волей и в своем интересе, даю конкретное, предметное, информированное, сознательное и однозначное согласие на обработку моих персональных данных на следующих условиях.</p>
+
+        <h2>1. Оператор персональных данных</h2>
+        <div class="info-box">
+          <p><strong>Наименование:</strong> Индивидуальный предприниматель Варламов Николай Гаврильевич</p>
+          <p><strong>ИНН:</strong> 143502847415 (в соответствии с данными 2ГИС)</p>
+          <p><strong>ОГРНИП:</strong> 313143500018089 (в соответствии с данными 2ГИС)</p>
+          <p><strong>Адрес:</strong> г.Якутск, Лермонтова 64/2 (Парк культуры и отдыха)</p>
+          <p><strong>Контактный телефон:</strong> +7 (967) 910-80-10</p>
+          <p><strong>Адрес электронной почты для обращений: salgyn.park@mail.ru</strong></p>
+        </div>
+
+        <h2>2. Перечень персональных данных</h2>
+        <p>Оператор обрабатывает следующие категории персональных данных Пользователя, предоставленные при заполнении формы бронирования на сайте:</p>
+        <ul>
+          <li><strong>Имя</strong> (для идентификации Пользователя и персонализации обращения);</li>
+          <li><strong>Номер контактного телефона</strong> (для связи, подтверждения бронирования и уточнения деталей заказа);</li>
+          <li><strong>Выбранные услуги и количество гостей</strong> (для формирования заказа и расчета стоимости).</li>
+        </ul>
+        <p>Также при использовании сайта автоматически обрабатываются технические данные (файлы cookie, IP-адрес, данные о браузере), однако их обработка регулируется отдельной Политикой конфиденциальности и не требует настоящего согласия.</p>
+
+        <h2>3. Цели обработки персональных данных</h2>
+        <ul>
+          <li>Оформление и подтверждение бронирования услуг центра активного отдыха «Салгын Парк»;</li>
+          <li>Связь с Пользователем для уточнения деталей заказа (дата, время, состав услуг);</li>
+          <li>Информирование Пользователя об изменениях в бронировании, статусе заказа или акциях (в рамках оформленного заказа);</li>
+          <li>Исполнение требований законодательства Российской Федерации (в том числе налогового и бухгалтерского учета).</li>
+        </ul>
+
+        <h2>4. Действия с персональными данными</h2>
+        <p>Пользователь дает согласие на совершение Оператором следующих действий с персональными данными (как с использованием средств автоматизации, так и без них):</p>
+        <ul>
+          <li><strong>Сбор, запись, систематизация, накопление, хранение</strong> — для формирования базы бронирований;</li>
+          <li><strong>Уточнение (обновление, изменение)</strong> — при изменении данных Пользователем;</li>
+          <li><strong>Извлечение, использование</strong> — для связи и подтверждения заказа;</li>
+          <li><strong>Передача (предоставление, доступ)</strong> — только в случаях, предусмотренных законодательством РФ (например, по запросу уполномоченных органов), а также подрядчикам, обеспечивающим техническую поддержку сайта (при наличии);</li>
+          <li><strong>Блокирование, удаление, уничтожение</strong> — по достижении целей обработки или при отзыве согласия.</li>
+        </ul>
+        <p>Передача персональных данных третьим лицам в целях, не предусмотренных настоящим согласием, не осуществляется. Трансграничная передача персональных данных не производится; данные хранятся на серверах, расположенных на территории Российской Федерации.</p>
+
+        <h2>5. Срок действия согласия и порядок отзыва</h2>
+        <p>Настоящее согласие действует с момента его предоставления (нажатия кнопки «Отправить заявку» / проставления чекбокса) до достижения целей обработки, но не более <strong>3 (трех) лет</strong> с момента последнего взаимодействия Пользователя с Оператором, либо до момента отзыва согласия.</p>
+        <p>Пользователь вправе в любой момент отозвать настоящее согласие, направив Оператору письменное заявление:</p>
+        <ul>
+          <li>по адресу электронной почты: <strong>info@salgyngpark.ru</strong>;</li>
+          <li>либо по почтовому адресу: <strong>Республика Саха (Якутия), г. Якутск, территория Центрального городского парка культуры и отдыха, рядом со спорткомплексом «Дохсун», ИП Варламов Н.Г.</strong></li>
+        </ul>
+        <p>В случае отзыва согласия Оператор прекращает обработку персональных данных и уничтожает их в срок, не превышающий 30 (тридцати) календарных дней с момента получения отзыва, за исключением случаев, когда обработка должна быть продолжена в соответствии с законодательством РФ (например, для исполнения договора или требований налогового законодательства).</p>
+
+        <h2>6. Права субъекта персональных данных</h2>
+        <p>Пользователь имеет право:</p>
+        <ul>
+          <li>получать информацию, касающуюся обработки его персональных данных;</li>
+          <li>требовать уточнения, блокирования или уничтожения персональных данных, если они являются неполными, устаревшими, неточными или незаконно полученными;</li>
+          <li>обжаловать действия или бездействие Оператора в уполномоченный орган по защите прав субъектов персональных данных (Роскомнадзор) или в судебном порядке.</li>
+        </ul>
+
+        <h2>7. Заключительные положения</h2>
+        <p>Настоящее согласие оформлено в соответствии с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» (в действующей редакции, включая изменения, вступившие в силу с 1 сентября 2025 года) и является отдельным документом, не включенным в состав иных договоров или пользовательских соглашений.</p>
+        <p>Факт предоставления согласия фиксируется Оператором (с указанием даты, времени и IP-адреса) в информационной системе при отправке формы на сайте.</p>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ========== ФУТЕР ========== -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Салгын Парк. Все права защищены.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
