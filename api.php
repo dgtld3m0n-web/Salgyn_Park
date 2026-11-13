@@ -15,10 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-$host = 'mysql-8.4.local';
-$dbname = 'salgyn_park';
-$user = 'root';
-$pass = '';
+$host = 'sql201.infinityfree.com';
+$dbname = 'if0_43421839_salgyn_park';
+$user = 'if0_43421839';
+$pass = 'po8woafY2ZQ';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $pass);
