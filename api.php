@@ -38,6 +38,11 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS bookings (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
+try {
+    $pdo->exec("ALTER TABLE bookings ADD COLUMN booking_date VARCHAR(50) DEFAULT NULL");
+} catch (PDOException $e) {
+}
+
 $pdo->exec("CREATE TABLE IF NOT EXISTS reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
@@ -59,8 +64,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 
     if ($action === 'booking') {
-        $stmt = $pdo->prepare("INSERT INTO bookings (name, phone, services, total) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$_POST['name'] ?? '', $_POST['phone'] ?? '', $_POST['services'] ?? '', $_POST['total'] ?? '']);
+        $stmt = $pdo->prepare("INSERT INTO bookings (name, phone, services, total, booking_date) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([
+            $_POST['name'] ?? '', 
+            $_POST['phone'] ?? '', 
+            $_POST['services'] ?? '', 
+            $_POST['total'] ?? '',
+            $_POST['booking_date'] ?? ''
+        ]);
         echo json_encode(['status' => 'success']);
         exit;
     }

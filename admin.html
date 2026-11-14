@@ -252,7 +252,12 @@
         tbody.innerHTML += `
           <tr>
             <td>#${item.id}<br><small style="color:#999">${item.created_at}</small></td>
-            <td><strong>${item.name}</strong><br>${item.phone}</td>
+            <td>
+              <strong>${item.name}</strong><br>${item.phone}<br>
+              <span style="color: #004E89; font-weight: 600; font-size: 12px; margin-top: 4px; display: inline-block; background: #E6F2F8; padding: 2px 6px; border-radius: 4px;">
+                📅 ${item.booking_date || 'Дата не выбрана'}
+              </span>
+            </td>
             <td class="services-cell">${formattedServices}<br><br><strong style="font-size: 14px; color: #1a1a2e;">${item.total}</strong></td>
             <td>${status}</td>
             <td>${actionsHTML}</td>
